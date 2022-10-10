@@ -1,0 +1,82 @@
+.cardForm {
+  width: 90%;
+  padding-left: 5%;
+}
+
+.cardFormElement {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.cardFormElementLabel,
+.cardFormElementText {
+  font-weight: bold;
+  color: var(--very-dark-violet);
+  letter-spacing: 4px;
+  font-size: 0.9rem;
+}
+
+.cardFormElementInput {
+  padding: 15px;
+  border-radius: 10px;
+  letter-spacing: 1px;
+  font-size: 1.1rem;
+  border: 1px solid var(--light-grayish-violet);
+}
+
+.cardFormElementInput::placeholder {
+  color: var(--light-grayish-violet);
+}
+
+.cardFormElementInput:focus {
+  outline: none;
+  background: linear-gradient(var(--white), var(--white)) padding-box,
+    var(--linear-gradient) border-box;
+  border: 1px solid transparent;
+}
+
+.cardFormButton {
+  width: 100%;
+  padding: 15px 0;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: var(--white);
+  background-color: var(--very-dark-violet);
+  border-radius: 10px;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
+.half {
+  width: 50%;
+}
+
+.sharedSpace {
+  display: flex;
+  align-items: center;
+}
+
+.sharedSpace .half:first-child {
+  margin-right: 5%;
+  width: 45%;
+}
+
+.exp {
+  width: 60%;
+}
+
+.cvc {
+  width: 40%;
+  margin-left: 20px;
+}
+
+.error {
+  border: 1px solid var(--red);
+}
+
+.textError {
+  color: var(--red);
+  font-weight: bold;
+}
