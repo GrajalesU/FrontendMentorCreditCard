@@ -1,0 +1,16 @@
+.cardBack {
+  position: relative;
+  width: 447px;
+  height: 245px;
+}
+
+.cardBack > * {
+  position: absolute;
+}
+
+.cardSecret {
+  left: 80%;
+  top: 45%;
+  color: var(--white);
+  letter-spacing: 3px;
+}
