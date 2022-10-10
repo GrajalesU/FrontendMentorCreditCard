@@ -1,0 +1,54 @@
+.cardFront {
+  position: relative;
+  width: 447px;
+  height: 245px;
+}
+
+.cardFront > * {
+  position: absolute;
+}
+
+.cardWhiteCircle {
+  left: 5%;
+  top: 10%;
+  width: 32px;
+  height: 32px;
+  background: var(--white);
+  border-radius: 100%;
+}
+
+.cardBorderCircle {
+  left: 15%;
+  top: calc(10% + 8px);
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--white);
+  border-radius: 100%;
+}
+
+.cardNumber {
+  top: 70%;
+  margin: 0 10%;
+  color: var(--white);
+  letter-spacing: 9px;
+  text-align: center;
+  font-weight: bold;
+  width: 80%;
+}
+
+.cardName {
+  top: 85%;
+  margin: 0 10%;
+  color: var(--white);
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.cardDate {
+   right: 10%;
+   top: 85%;
+   font-size: 0.8rem;
+   color: var(--white);
+   letter-spacing: 3px;
+}
