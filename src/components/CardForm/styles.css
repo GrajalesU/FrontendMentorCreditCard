@@ -79,6 +79,8 @@
 .textError {
   color: var(--red);
   font-weight: bold;
+  display: inline-block;
+  height: 20px;
 }
 
 @media (min-width: 1440px) {
