@@ -56,16 +56,49 @@ function validateCardCVC(cardCVC: string): boolean {
 }
 
 /**
+ *
+ * @param {string} month
+ * @returns {boolean}
+ */
+function validateMonth(month: string): boolean {
+  if (month.length === 0) return false;
+  const monthRegex = /^([1][0-2])|([0][1-9])$/;
+  const monthRegexResult = monthRegex.test(month);
+  if (monthRegexResult) return true;
+  return false;
+}
+
+/**
+ *
+ * @param {string} year
+ * @returns {boolean}
+ */
+function validateYear(year: string): boolean {
+  if (year.length === 0) return false;
+  const yearRegex = /^[0-9]{2}$/;
+  const yearRegexResult = yearRegex.test(year);
+  if (yearRegexResult) return true;
+  return false;
+}
+
+/**
  * @param {string} input
  * @returns {boolean}
  * @description Validate input to check if it is void or not
  */
-function isBlank(input: string): boolean {
+function hasText(input: string): boolean {
   const inputLength = input.length;
   if (inputLength === 0) {
-    return true;
+    return false;
   }
-  return false;
+  return true;
 }
 
-export { validateCardNumber, formatCardNumber, validateCardCVC, isBlank };
+export {
+  validateCardNumber,
+  formatCardNumber,
+  validateCardCVC,
+  hasText,
+  validateMonth,
+  validateYear,
+};
