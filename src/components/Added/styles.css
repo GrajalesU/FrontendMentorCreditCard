@@ -1,0 +1,42 @@
+.added {
+  width: 90%;
+  padding-left: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.addedTitle {
+  color: var(--very-dark-violet);
+}
+
+.addedDetail {
+  color: var(--dark-grayish-violet);
+}
+
+.addedButton {
+  width: 100%;
+  padding: 15px 0;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: var(--white);
+  background-color: var(--very-dark-violet);
+  border-radius: 10px;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
+.addedButton:hover {
+  opacity: 0.9;
+}
+
+@media (min-width: 1440px) {
+  .added {
+    padding-left: 0%;
+    padding-right: 5%;
+    margin: 0 auto;
+  }
+}

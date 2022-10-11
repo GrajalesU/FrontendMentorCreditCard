@@ -18,9 +18,20 @@ type Props = {
   setName: React.Dispatch<React.SetStateAction<string>>;
   setCvc: React.Dispatch<React.SetStateAction<string>>;
   setDate: React.Dispatch<React.SetStateAction<[string, string]>>;
+  setAdded: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const CardForm = ({ number, setNumber, name, setName, date, setDate, cvc, setCvc }: Props) => {
+const CardForm = ({
+  number,
+  setNumber,
+  name,
+  setName,
+  date,
+  setDate,
+  cvc,
+  setCvc,
+  setAdded,
+}: Props) => {
   const nameError = useError(name, [hasText], ["Can't be blank"]);
   const cvcError = useError(cvc, [hasText, validateCardCVC], ["Can't be blank", 'Wrong format']);
   const yearError = useError(date[1], [hasText, validateYear], [" Can't be blank", 'Wrong format']);
@@ -37,6 +48,7 @@ const CardForm = ({ number, setNumber, name, setName, date, setDate, cvc, setCvc
 
   const handleForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if (!nameError && !cvcError && !yearError && !monthError) setAdded(true);
   };
 
   return (
