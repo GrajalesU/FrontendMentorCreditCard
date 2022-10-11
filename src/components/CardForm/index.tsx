@@ -1,6 +1,13 @@
 import './styles.css';
-import { validateCardNumber, validateCardCVC, formatCardNumber, isBlank } from '~/utils/form';
-import { useState } from 'react';
+import {
+  validateCardNumber,
+  validateCardCVC,
+  formatCardNumber,
+  hasText,
+  validateMonth,
+  validateYear,
+} from '~/utils/form';
+import useError from '~/hooks/useError';
 
 type Props = {
   number: string;
@@ -13,143 +20,25 @@ type Props = {
   setDate: React.Dispatch<React.SetStateAction<[string, string]>>;
 };
 
-const NOT_ERRORS = {
-  number: [false, ''],
-  name: [false, ''],
-  cvc: [false, ''],
-  date: {
-    month: false,
-    year: false,
-    message: '',
-  },
-};
-
 const CardForm = ({ number, setNumber, name, setName, date, setDate, cvc, setCvc }: Props) => {
-  const [errors, setErrors] = useState(NOT_ERRORS);
+  const nameError = useError(name, [hasText], ["Can't be blank"]);
+  const cvcError = useError(cvc, [hasText, validateCardCVC], ["Can't be blank", 'Wrong format']);
+  const yearError = useError(date[1], [hasText, validateYear], [" Can't be blank", 'Wrong format']);
+  const monthError = useError(
+    date[0],
+    [hasText, validateMonth],
+    ["Can't be blank", 'Wrong format'],
+  );
+  const numberError = useError(
+    number,
+    [hasText, validateCardNumber],
+    ["Can't be blank", 'Wrong format'],
+  );
+
   const handleForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (!validateCardCVC(cvc)) {
-      setErrors((current) => {
-        return {
-          ...current,
-          cvc: [true, 'Wrong format, numbers only'],
-        };
-      });
-    } else {
-      setErrors((current) => {
-        return {
-          ...current,
-          cvc: [false, ''],
-        };
-      });
-    }
-    if (!validateCardNumber(number)) {
-      setErrors((current) => {
-        return {
-          ...current,
-          number: [true, 'Wrong format, numbers only'],
-        };
-      });
-    } else {
-      setErrors((current) => {
-        return {
-          ...current,
-          number: [false, ''],
-        };
-      });
-    }
-    if (isBlank(number)) {
-      setErrors((current) => {
-        return {
-          ...current,
-          number: [true, "Can't be blank"],
-        };
-      });
-    } else {
-      setErrors((current) => {
-        return {
-          ...current,
-          number: [false, ''],
-        };
-      });
-    }
-    if (isBlank(name)) {
-      setErrors((current) => {
-        return {
-          ...current,
-          name: [true, "Can't be blank"],
-        };
-      });
-    } else {
-      setErrors((current) => {
-        return {
-          ...current,
-          name: [false, "Can't be blank"],
-        };
-      });
-    }
-    if (isBlank(cvc)) {
-      setErrors((current) => {
-        return {
-          ...current,
-          cvc: [true, "Can't be blank"],
-        };
-      });
-    } else {
-      setErrors((current) => {
-        return {
-          ...current,
-          cvc: [false, ''],
-        };
-      });
-    }
-    if (isBlank(date[0])) {
-      setErrors((current) => {
-        return {
-          ...current,
-          date: {
-            ...current.date,
-            month: true,
-            message: "Can't be blank",
-          },
-        };
-      });
-    } else {
-      setErrors((current) => {
-        return {
-          ...current,
-          date: {
-            ...current.date,
-            month: false,
-            message: "Can't be blank",
-          },
-        };
-      });
-    }
-    if (isBlank(date[1])) {
-      setErrors((current) => {
-        return {
-          ...current,
-          date: {
-            ...current.date,
-            year: true,
-            message: "Can't be blank",
-          },
-        };
-      });
-    } else {
-      setErrors((current) => {
-        return {
-          ...current,
-          date: {
-            ...current.date,
-            year: false,
-            message: "Can't be blank",
-          },
-        };
-      });
-    }
   };
+
   return (
     <form className='cardForm' onSubmit={handleForm}>
       <div className='cardFormElement'>
@@ -157,7 +46,7 @@ const CardForm = ({ number, setNumber, name, setName, date, setDate, cvc, setCvc
           CARDHOLDER NAME
         </label>
         <input
-          className={errors.name[0] ? 'error cardFormElementInput' : 'cardFormElementInput'}
+          className={nameError ? 'error cardFormElementInput' : 'cardFormElementInput'}
           type='text'
           id='name'
           placeholder='e.g. Jane Appleseed'
@@ -165,14 +54,14 @@ const CardForm = ({ number, setNumber, name, setName, date, setDate, cvc, setCvc
           onChange={(e) => setName(e.target.value)}
           maxLength={21}
         />
-        <small className='textError'>{errors.name[0] && errors.name[1]}</small>
+        <small className='textError'>{nameError}</small>
       </div>
       <div className='cardFormElement'>
         <label htmlFor='number' className='cardFormElementLabel'>
           CARD NUMBER
         </label>
         <input
-          className={errors.number[0] ? 'error cardFormElementInput' : 'cardFormElementInput'}
+          className={numberError ? 'error cardFormElementInput' : 'cardFormElementInput'}
           type='text'
           id='number'
           placeholder='e.g. 1234 5678 9123 0000'
@@ -183,7 +72,7 @@ const CardForm = ({ number, setNumber, name, setName, date, setDate, cvc, setCvc
             setNumber(formatNumber);
           }}
         />
-        <small className='textError'>{errors.number[0] && errors.number[1]}</small>
+        <small className='textError'>{numberError}</small>
       </div>
       <div className='sharedSpace'>
         <div className='cardFormElement exp'>
@@ -191,45 +80,42 @@ const CardForm = ({ number, setNumber, name, setName, date, setDate, cvc, setCvc
             EXP. DATE (<label htmlFor='month'>MM</label>/<label htmlFor='year'>YY</label>)
           </p>
           <div className='sharedSpace'>
-            <input
-              className={
-                errors.date.month ? 'cardFormElementInput half error' : 'cardFormElementInput half'
-              }
-              type='number'
-              id='month'
-              placeholder='MM'
-              min='1'
-              max='12'
-              value={date[0]}
-              onChange={(e) => {
-                setDate([e.target.value, date[1]]);
-              }}
-            />
-            <input
-              className={
-                errors.date.year ? 'cardFormElementInput half error' : 'cardFormElementInput half'
-              }
-              type='number'
-              id='year'
-              placeholder='YY'
-              min='00'
-              max='99'
-              value={date[1]}
-              onChange={(e) => {
-                setDate([date[0], e.target.value]);
-              }}
-            />
+            <div className='half'>
+              <input
+                className={monthError ? 'cardFormElementInput error' : 'cardFormElementInput'}
+                type='text'
+                id='month'
+                placeholder='MM'
+                maxLength={2}
+                value={date[0]}
+                onChange={(e) => {
+                  setDate([e.target.value, date[1]]);
+                }}
+              />
+              <small className='textError'>{monthError && monthError}</small>
+            </div>
+            <div className='half'>
+              <input
+                className={yearError ? 'cardFormElementInput error' : 'cardFormElementInput'}
+                type='text'
+                id='year'
+                placeholder='YY'
+                maxLength={2}
+                value={date[1]}
+                onChange={(e) => {
+                  setDate([date[0], e.target.value]);
+                }}
+              />
+              <small className='textError'>{yearError && yearError}</small>
+            </div>
           </div>
-          <small className='textError'>
-            {(errors.date.month || errors.date.year) && errors.date.message}
-          </small>
         </div>
         <div className='cardFormElement cvc'>
           <label htmlFor='cvc' className='cardFormElementLabel'>
             CVC
           </label>
           <input
-            className={errors.cvc[0] ? 'error cardFormElementInput' : 'cardFormElementInput'}
+            className={cvcError ? 'error cardFormElementInput' : 'cardFormElementInput'}
             type='text'
             id='cvc'
             placeholder='e.g. 123'
@@ -239,7 +125,7 @@ const CardForm = ({ number, setNumber, name, setName, date, setDate, cvc, setCvc
               setCvc(e.target.value);
             }}
           />
-          <small className='textError'>{errors.cvc[0] && errors.cvc[1]}</small>
+          <small className='textError'>{cvcError}</small>
         </div>
       </div>
 
