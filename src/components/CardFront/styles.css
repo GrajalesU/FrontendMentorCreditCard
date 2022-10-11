@@ -1,7 +1,7 @@
 .cardFront {
   position: relative;
-  width: 447px;
-  height: 245px;
+  width: 310px;
+  height: 170px;
 }
 
 .cardFront > * {
@@ -9,8 +9,8 @@
 }
 
 .cardLogo {
-  left: 5%;
   top: 10%;
+  transform: scale(0.5);
 }
 
 .cardNumber {
@@ -18,7 +18,7 @@
   left: 5%;
   color: var(--white);
   letter-spacing: 9px;
-  font-size: 1.4rem;
+  font-size: 0.7rem;
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -27,7 +27,7 @@
   top: 80%;
   left: 5%;
   color: var(--white);
-  font-size: 0.8rem;
+  font-size: 0.5rem;
   font-weight: bold;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -36,8 +36,42 @@
 .cardDate {
   right: 7%;
   top: 80%;
-  font-size: 0.8rem;
+  font-size: 0.5rem;
   color: var(--white);
   letter-spacing: 3px;
   text-transform: uppercase;
+}
+
+.cardBackground {
+  width: 100%;
+  height: 100%;
+}
+
+.cardBackground img {
+  width: 100%;
+}
+
+@media (min-width: 1440px) {
+  .cardLogo {
+    left: 5%;
+    top: 10%;
+    transform: scale(1);
+  }
+
+  .cardFront {
+    width: 447px;
+    height: 245px;
+  }
+
+  .cardNumber {
+    font-size: 1.4rem;
+  }
+
+  .cardName {
+    font-size: 0.8rem;
+  }
+
+  .cardDate {
+    font-size: 0.8rem;
+  }
 }

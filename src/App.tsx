@@ -1,7 +1,7 @@
-import CreditCard from './pages/CreditCard';
+import Card from './pages/Card';
 
 function App() {
-  return <CreditCard />;
+  return <Card />;
 }
 
 export default App;

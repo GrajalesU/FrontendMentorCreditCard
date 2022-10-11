@@ -1,7 +1,7 @@
 .cardBack {
   position: relative;
-  width: 447px;
-  height: 245px;
+  width: 310px;
+  height: 170px;
 }
 
 .cardBack > * {
@@ -13,4 +13,26 @@
   top: 45%;
   color: var(--white);
   letter-spacing: 3px;
+  font-size: 0.7rem;
+}
+
+.cardBackground {
+  width: 100%;
+  height: 100%;
+}
+
+.cardBackground img {
+  width: 100%;
+}
+
+@media (min-width: 1440px) {
+  .cardBack {
+    width: 447px;
+    height: 245px;
+  }
+
+  .cardSecret {
+    font-size: 1rem;
+  }
+
 }
