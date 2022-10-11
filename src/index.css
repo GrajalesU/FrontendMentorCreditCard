@@ -34,14 +34,14 @@ p {
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-width: var(--mobile);
 }
 
 .cardContainer {
   position: relative;
-  display: flex;
-  flex-direction: column;
   width: 100%;
   height: 500px;
 }
@@ -65,4 +65,34 @@ p {
   background-image: url('./assets/images/bg-main-mobile.png');
   background-position: right, left;
   background-size: cover;
+}
+
+@media (min-width: 1440px) {
+  .background {
+    height: 100vh;
+    width: 30%;
+    background-image: url('./assets/images/bg-main-desktop.png');
+  }
+
+  .container{
+   flex-direction: row;
+   height: 100vh;
+  }
+
+  .cardContainer{
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+  }
+
+  .cardContainerBack{
+    top: 50%;
+    right: 10%;
+  }
+
+  .cardContainerFront{
+    top:20%;
+    left: 10%;
+  }
 }
